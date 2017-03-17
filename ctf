@@ -1,7 +1,14 @@
 
 一. 技术
 socat
-
+#sudo apt-get install socat
 
 二. 网站
 https://www.ctftools.com/
+
+三. 套路
+$ls -al demo
+$file demo
+$strings demo
+$objdump -d demo
+$gdb && checksec
