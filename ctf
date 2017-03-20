@@ -3,6 +3,10 @@
 socat
 #sudo apt-get install socat
 
+metasploit
+>msf
+
+
 二. 网站
 https://www.ctftools.com/
 
