@@ -16,3 +16,11 @@ $file demo
 $strings demo
 $objdump -d demo
 $gdb && checksec
+
+四.工具
+二进制查看器: Radare2,ninja
+python反编译：uncompyle2,umcompyle6,easy python decompiler
+movfuscator: https://github.com/xoreaxeaxeax/movfuscator
+demovfuscator: https://github.com/kirschju/demovfuscator
+ltrace: 跟踪进程库函数调用情况（显示调用结果）
+strace: 跟踪程序的每个系统调用
