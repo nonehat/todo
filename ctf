@@ -28,3 +28,60 @@ binary patch: binch
 52破解工具集合： https://down.52pojie.cn/Tools/
 https://bamboofox.github.io/tags.html
 信息安全资料合集: http://bar.freebuf.com/comment/9775
+
+import random
+
+
+jmHOST = 'http://api.eobzz.com/httpApi.do'
+jmPid = '36294'
+
+
+def jmLogin():
+	global jmHOST
+	loginArgs = {"action":"loginIn", "uid":"userlxx", "pwd":"mima1234"}
+	loginRsp = request.get(jmHOST, params=loginArgs)
+	return loginRsp.text.split('|')
+
+def getPhoneNum(pid, uid, token):
+	global jmHOST
+	getPhoneArgs = {"action":"getMobilenum", "pid":pid, "uid":uid, "token":token, "mobile":"", "size":"1"}
+	getPhoneRsp = request.get(jmHOST, params=getPhoneArgs)
+	return getPhoneRsp.text.split('|')[0]
+
+def getVcode(uid,token,mobileNum,author):
+	global jmHOST
+	getVcodeArgs = {"action":"getVcodeAndReleaseMobile", "uid":uid, "token":token, "mobile":mobileNum, "author_uid":author}
+	getVcodeRsp = request.get(jmHOST, params=getVcodeArgs)
+	
+	
+	
+def getBB(data):
+	lines = data.split('\n')
+	for line in lines:
+		if 'name="bb"' in line:
+			return line = line.strip()[38:38+32]
+
+def getFromId():
+	invitecodes = [22699,]
+	return invitecodes[random.randint(len(invitecodes))]
+
+HOST = 'http://best.bi'
+
+fromId = getFromId()
+
+#/t/invitecodes
+r1 = request.get()
+bbValue = getBB(r1.text)
+
+#get phone number
+phoneNum = getPhoneNum()
+
+#/sns/getverifycode
+args1 = {"cellphone":phoneNum, "bb":bbValue}
+
+#获取验证码
+verCode = getVerCode()
+
+#/site/register
+args2 = {"fromid":fromId, "cellphone":phoneNum, "snscode":verCode, "password":"None1234", "re_password":"None1234", "bb":bbValue}
+request.post(HOST+'/site/register', params=args)
