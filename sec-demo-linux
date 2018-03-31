@@ -1,0 +1,46 @@
+//开启ssh
+#lsb_release
+#vi /etc/ssh/sshd_config
+>#PasswordAuthentication yes 去掉注释
+#service sshd restart
+
+//apache2服务
+#service apache2 status
+#service apache2 start
+#http://127.0.0.1
+#vi info.php < <?php phpinfo(); ?>
+#service apache2 restart
+#http://127.0.0.1/info.php
+
+//dvwa
+#cp DVWA-1.9.ZIP /var/www/html
+#unzip DVWA-1.9.zip
+#mv DVWA-1.9 dvwa
+#chmod -R 755 dvwa
+#service apache2 restart
+#service mysql start
+#mysql -u root -p
+>无密码
+>create database dvwa;
+>exit
+#vi /var/www/html/dvwa/config/config.inc.php
+>$password改为空
+#vi /var/www/html/dvwa/login.php
+>L16注释掉
+#servivce apache2 restart
+//http://127.0.0.1/dvwa
+//create/reset database
+//登陆
+
+######################
+由于kali linux 2017 版或者旧版系统更新过数据库后，dvwa连接数据库会产生错误，这是因为其中使用的MariaDB数据库管理系统是MySQL的一个分支，并不和MySQL完全相同，所以不能使用数据库管理系统的root用户来登陆，可以创建一个新的数据库用户来替换默认的使用者root。 
+----------------------
+mysql> create database dvwa;
+Query OK, 1 row affected (0.00 sec)
+mysql> grant all on dvwa.* to dvwa@localhost identified by 'password';
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+#######################
+
+//安装vsftp
